@@ -14,8 +14,8 @@ Consideraciones:
 
 Se adjunta la documentación de la primera entrega sobre Análisis Exploratorio, en la misma se muestran las observaciones que se hicieron sobre los distintos atributos, y además un enfoque considerado para valores faltantes, que quedó solo como ejercicio ya que en el próximo práctico se respetó lo pedido para esta situación.
 
-- MELI_Exploracion.ipynb, notebook con análisis del dataset base.
-- MELI_Exploracion.docx, informe exploratorio.
+-- MELI_Exploracion.ipynb, notebook con análisis del dataset base.
+-- MELI_Exploracion.docx, informe exploratorio.
 
 #### -Comentarios del trabajo:
 
@@ -36,7 +36,7 @@ El dataset base contiene las siguientes columnas:
 
 #### -Análisis y Curación de datos
 
-- MELI_AYC_A.ipynb
+-- MELI_AYC_A.ipynb
 
 En esta notebook revisamos las variables categóricas que nos interesa incluir en el modelo, con estas consideraciones:
 * Las categorizaciones con valores nulos las vamos a asignar a un label "SIN_DATOS", ya que asumimos que es una situación que pueda darse al no ser valores obligatorios.
