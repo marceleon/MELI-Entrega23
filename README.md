@@ -14,8 +14,8 @@ Consideraciones:
 
 Se adjunta la documentación de la primera entrega sobre Análisis Exploratorio, en la misma se muestran las observaciones que se hicieron sobre los distintos atributos, y además un enfoque considerado para valores faltantes, que quedó solo como ejercicio ya que en el próximo práctico se respetó lo pedido para esta situación.
 
-- _MELI_Exploracion.ipynb_, notebook con análisis del dataset base.
-- _MELI_Exploracion.docx_, informe exploratorio.
+- MELI_Exploracion.ipynb, notebook con análisis del dataset base.
+- MELI_Exploracion.docx, informe exploratorio.
 
 #### -Comentarios del trabajo:
 
