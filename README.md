@@ -7,19 +7,43 @@ Entrega Prácticos "Análisis y Curación de datos" e "Introducción al aprendiz
 
 Comentarios del trabajo:
 
--La carpeta __dataset__ cotienen los archivos csv utilizados. Se versionaron ZIPeados por una cuestión de tamaño.
+- El dataset base se puede descagar de https://drivegoogle.com/file/d/1tNUKD1lf1z8C7LPpCruiDl6SKBAHb79v/view?ts=5cc45a8d 
+- Las notebook buscan y generan los archivos dataset en la carpeta _dataset_ 
 
--Previo: se adjunta la docuemntación de la primer entrega sobre Análisis Exploratorio, en la misma se muestran las observaciones que se hicieron sobre los distintos atributos, y además un enfoque considerado para valores faltantes, que quedó solo como ejercicio ya que en el próximo práctico se respetó lo peidodo para esta situación.
+-Previo
+
+Se adjunta la docuemntación de la primer entrega sobre Análisis Exploratorio, en la misma se muestran las observaciones que se hicieron sobre los distintos atributos, y además un enfoque considerado para valores faltantes, que quedó solo como ejercicio ya que en el próximo práctico se respetó lo peidodo para esta situación.
 
 * MELI_Exploracion.ipynb, notebook con análisis del dataset base.
 * MELI_Exploracion.docx, informe exploratorio.
 
 -Análisis y Curación de datos
 
+El dataset base contiene las siguientes columnas:
+* ITEM_ID: id unívoco de cada item publicado. (Ofuscado)
+* SHP_WEIGHT: peso del paquete informado por el correo.
+* SHP_LENGTH: largo del paquete informado por el correo.
+* SHP_WIDTH: ancho del paquete informado por el correo.
+* SHP_HEIGHT: altura del paquete informado por el correo.
+* ATTRIBUTES: atributos como marca y modelo, entre otros, en formato json-lines
+* CATALOG_PRODUCT_ID: id del catálogo (ofuscado).
+* CONDITION: condición de venta (nuevo o usado).
+* DOMAIN_ID: id de la categoría a la que pertenece la publicación.
+* PRICE: precio en reales.
+* SELLER_ID: id del vendedor (ofuscado).
+* STATUS: estado de la publicación (activa, cerrada, pausada, etc.)
+* TITLE: título de la publicación.
+
 * MELI_AYC_A.ipynb
-&emsp Partimos del dataset base con 499948 envíos y siguiendo con lo solicitado, se eliminaron aquellos con STATUS 404 (78361) y los que carecen de valor en SHP_HEIGHT, SHP_LENGTH, SHP_WEIGHT, SHP_WIDTH (125262).
-&emsp Se agruparon los envíos por ITEM calculando 236443 diferentes con sus medianas de peso y dimensiones. Decidimos para el resto del trabajo utilizar el dataset completo y no este reducido por considerar que pederíamos características del envíos que faltaría en esta tabla por item.
-&emsp Se agruparon los envíos por ITEM calculando 236443 diferentes con sus medianas de peso y dimensiones. Decidimos para el resto del trabajo utilizar el dataset completo y no este reducido por considerar que pederíamos características del envíos que faltaría en esta tabla por item.
+Esta notebook revisamos las variables categóricas que nos interesa incluir en el modelo, con estas consideraciones:
+ * Las categorizaciones con valores nulos las vamos a asignar a un label "SIN_DATOS", ya que asumimos que es una situación que pueda darse al no ser valores obligatorios.
+ * Las categorizaciones con menos de 30 valores las consideramos sin valor estadístico, por lo tanto las agrupamos con el label "OTROS"
+
+Partimos del dataset base con 499948 envíos y siguiendo con lo solicitado, se eliminaron aquellos con STATUS 404 (78361) y los que carecen de valor en SHP_HEIGHT, SHP_LENGTH, SHP_WEIGHT, SHP_WIDTH (125262).
+Se agruparon los envíos por ITEM calculando 236443 diferentes con sus medianas de peso y dimensiones. Decidimos para el resto del trabajo utilizar el dataset completo y no este reducido por considerar que pederíamos características de envíos que faltaría en esta tabla por item.
+Como salida de esta notebook obtenemos:
+
+Se agruparon los envíos por ITEM calculando 236443 diferentes con sus medianas de peso y dimensiones. Decidimos para el resto del trabajo utilizar el dataset completo y no este reducido por considerar que pederíamos características del envíos que faltaría en esta tabla por item.
 
 * MELI_AYC_B.ipynb
 
