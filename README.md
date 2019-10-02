@@ -15,6 +15,7 @@ Consideraciones:
 Se adjunta la documentación de la primera entrega sobre Análisis Exploratorio, en la misma se muestran las observaciones que se hicieron sobre los distintos atributos, y además un enfoque considerado para valores faltantes, que quedó solo como ejercicio ya que en el próximo práctico se respetó lo pedido para esta situación.
 
 -- MELI_Exploracion.ipynb, notebook con análisis del dataset base.
+
 -- MELI_Exploracion.docx, informe exploratorio.
 
 #### -Comentarios del trabajo:
@@ -58,14 +59,14 @@ Sumamos como columna también:
 
 Además, siguiendo con lo solicitado, se eliminaron aquellos con STATUS 404 (78361 casos) y los que carecen de valor en SHP_HEIGHT, SHP_LENGTH, SHP_WEIGHT, SHP_WIDTH (125262 casos). También quitamos los envíos con precio > 30mil reales por considerarlos no racionales (34 casos).
 
-- MELI_AYC_B.ipynb
+-- MELI_AYC_B.ipynb
 
 En esta notebook intentamos buscar una relación entre lo expuesto en el título de la publicación y la probabilidad de exceder el límite impuesto por el correo, ya que, tal lo expuesto en el análisis preliminar, habría palabras que tienen más peso en los productos que superan ese límite.
 
 Como resultado sumamos la siguiente columna:
 * SCORE, probabilidad de que el envío sea multado según lo expresado en el título.
 
-- MELI_AYC_C.ipynb
+-- MELI_AYC_C.ipynb
 
 En esta notebook completamos los valores faltantes de PRICE utilizando KNN. 
 
@@ -102,7 +103,7 @@ Se probaron los siguientes modelos:
 * SGDClassifier
 * RandomForestClassifier
 
-- MELI_INTRO_A.ipynb
+-- MELI_INTRO_A.ipynb
 
 En esta notebook ejecutamos ambos modelos con los parámetros por defecto y observamos de entrada valores muy altos de precisión y recall. Revisando los principales atributos considerados por el árbol de decisión, nos muestra:
 
@@ -112,7 +113,7 @@ LEN_ATR 0.039542
 
 SCORE es la columna que agregamos en función de aplicar un modelo sobre las palabras que se repiten en el título y su vínculo sobre la multa en el envío. Necesitamos verificar si el procedimiento empleado es correcto o estamos incorporando de alguna manera la variable objetivo dentro de los atributos de predicción.
 
-- MELI_INTRO_B.ipynb
+-- MELI_INTRO_B.ipynb
 
 En esta notebook volvemos a ejecutar ambos modelos con los parámetros por defecto pero descartando el atributo SCORE.
 Los valores de precisión y recall bajan considerablemente, los principales atributos considerados ahora serían:
