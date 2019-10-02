@@ -1,11 +1,41 @@
 # MELI-Entrega23
 Entrega Prácticos "Análisis y Curación de datos" e "Introducción al aprendizaje supervisado"
 
-###Ramiro CARO - Cohorte ALPHA
-###Marcelo LEON - Cohorte OMEGA
-####DiploDatos 2019 - FAMAF
+### Ramiro CARO - Cohorte ALPHA
+### Marcelo LEON - Cohorte OMEGA
+#### DiploDatos 2019 - FAMAF
 
-Notebook
+Comentarios del trabajo:
+-Previo: se adjunta la docuemntación de la primer entrega sobre Análisis Exploratorio:
+* MELI_Exploracion.ipynb, notebook con análisis
+* MELI_Exploracion.docx, informe exploratorio
+
+-Análisis y Curación de datos
+
+
+
+Actividades Propuestas:
+Eliminar valores cuyo status sea `404` , luego eliminar la columna `status` del dataset ya que solo es útil para limpieza.
+
+Eliminar los valores NaN de las columnas con prefijo `SHP_`. Estas son aquellas que representan o peso o dimensiones de un item.
+
+Agrupar por item id y calcular mediana de peso y medidas. De esta forma debería quedar una única fila por cada item_id.
+
+Parsear la columna de atributos y extraer a columnas propias aquellos atributos cuyo `id` sea `BRAND` o `MODEL`. Estos atributos representan marca o modelo que el vendedor del item ingresó en la publicación. [Opcional] No es necesario limitarse a estos dos atributos, se puede probar quedarse con los N atributos más frecuentes.
+
+Transformar variables categóricas en números (Se recomienda OneHotEncoding) para las columnas (Sugerencia: arrancar con un sample de ~10K items)
+`CATALOG_PRODUCT_ID`
+`CONDITION`
+`DOMAIN_ID`
+`SELLER_ID`
+`BRAND` (extraída en 4)
+`MODEL`(extraída en 4)
+
+En caso de tener alguna variable no medida (en nuestro caso `PRICE`) imputar sus valores utilizando kNN.
+
+Medir las distribuciones de las variables como histogramas, realizar normalizaciones e identificar outliers con los métodos vistos en clase. Hacer análisis de estos outliers y considerar si sería correcto o no eliminarlos del dataset. Sugerencia: Identificar outliers de las columnas `SHP_WEIGHT` y `SHP_VOLUME`, donde `SHP_VOLUME` se define como el producto de las dimensiones.
+
+Presentación: 
 MovieLens.ipynb
 Carpetas
 ./data/ ::Contiene los dataset que se utilizaron en el análisis (MovieLens 20M Dataset).
