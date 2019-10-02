@@ -6,12 +6,24 @@ Entrega Prácticos "Análisis y Curación de datos" e "Introducción al aprendiz
 #### DiploDatos 2019 - FAMAF
 
 Comentarios del trabajo:
--Previo: se adjunta la docuemntación de la primer entrega sobre Análisis Exploratorio:
-* MELI_Exploracion.ipynb, notebook con análisis
-* MELI_Exploracion.docx, informe exploratorio
+
+-La carpeta __dataset__ cotienen los archivos csv utilizados. Se versionaron ZIPeados por una cuestión de tamaño.
+
+-Previo: se adjunta la docuemntación de la primer entrega sobre Análisis Exploratorio, en la misma se muestran las observaciones que se hicieron sobre los distintos atributos, y además un enfoque considerado para valores faltantes, que quedó solo como ejercicio ya que en el próximo práctico se respetó lo peidodo para esta situación.
+
+* MELI_Exploracion.ipynb, notebook con análisis del dataset base.
+* MELI_Exploracion.docx, informe exploratorio.
 
 -Análisis y Curación de datos
 
+* MELI_AYC_A.ipynb
+&emsp Partimos del dataset base con 499948 envíos y siguiendo con lo solicitado, se eliminaron aquellos con STATUS 404 (78361) y los que carecen de valor en SHP_HEIGHT, SHP_LENGTH, SHP_WEIGHT, SHP_WIDTH (125262).
+&emsp Se agruparon los envíos por ITEM calculando 236443 diferentes con sus medianas de peso y dimensiones. Decidimos para el resto del trabajo utilizar el dataset completo y no este reducido por considerar que pederíamos características del envíos que faltaría en esta tabla por item.
+&emsp Se agruparon los envíos por ITEM calculando 236443 diferentes con sus medianas de peso y dimensiones. Decidimos para el resto del trabajo utilizar el dataset completo y no este reducido por considerar que pederíamos características del envíos que faltaría en esta tabla por item.
+
+* MELI_AYC_B.ipynb
+
+* MELI_AYC_C.ipynb
 
 
 Actividades Propuestas:
