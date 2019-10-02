@@ -8,14 +8,14 @@ Entrega Prácticos "Análisis y Curación de datos" e "Introducción al aprendiz
 Consideraciones:
 
 - El dataset base se puede descagar de https://drivegoogle.com/file/d/1tNUKD1lf1z8C7LPpCruiDl6SKBAHb79v/view?ts=5cc45a8d 
-- Las notebook buscan y generan los archivos csv en la carpeta _dataset_ 
+- Las notebooks buscan y generan los archivos csv en la carpeta _dataset_ 
 
 #### -Previo
 
-Se adjunta la docuemntación de la primer entrega sobre Análisis Exploratorio, en la misma se muestran las observaciones que se hicieron sobre los distintos atributos, y además un enfoque considerado para valores faltantes, que quedó solo como ejercicio ya que en el próximo práctico se respetó lo peidodo para esta situación.
+Se adjunta la documentación de la primer entrega sobre Análisis Exploratorio, en la misma se muestran las observaciones que se hicieron sobre los distintos atributos, y además un enfoque considerado para valores faltantes, que quedó solo como ejercicio ya que en el próximo práctico se respetó lo pedido para esta situación.
 
-_* MELI_Exploracion.ipynb_, notebook con análisis del dataset base.
-_* MELI_Exploracion.docx_, informe exploratorio.
+* _MELI_Exploracion.ipynb_, notebook con análisis del dataset base.
+* _MELI_Exploracion.docx_, informe exploratorio.
 
 #### -Comentarios del trabajo:
 
@@ -36,7 +36,7 @@ El dataset base contiene las siguientes columnas:
 
 #### -Análisis y Curación de datos
 
-_* MELI_AYC_A.ipynb_
+* _MELI_AYC_A.ipynb_
 En esta notebook revisamos las variables categóricas que nos interesa incluir en el modelo, con estas consideraciones:
 - Las categorizaciones con valores nulos las vamos a asignar a un label "SIN_DATOS", ya que asumimos que es una situación que pueda darse al no ser valores obligatorios.
 - Las categorizaciones con menos de 30 valores las consideramos sin valor estadístico, por lo tanto las agrupamos con el label "OTROS"
@@ -57,55 +57,52 @@ Sumamos como columna también:
 
 Además, siguiendo con lo solicitado, se eliminaron aquellos con STATUS 404 (78361 casos) y los que carecen de valor en SHP_HEIGHT, SHP_LENGTH, SHP_WEIGHT, SHP_WIDTH (125262 casos). También quitamos los envíos con precio > 30mil reales por consideralos no racionales (34 casos).
 
-
-_* MELI_AYC_B.ipynb_
+* _MELI_AYC_B.ipynb_
 En esta notebook intentamos buscar una relación entre lo expuesto en el título de la publicación y la probabilidad de exceder el límite impuesto por el correo, ya que, tal lo expuesto en el análisis preliminar, habría palabras que tienen mas peso en los productos que superan ese límite.
 Como resultado sumamos la siguiente columna:
 * SCORE, probabiliadad de que el envío sea multado según lo expresado en el título.
 
-_* MELI_AYC_C.ipynb_
+* _MELI_AYC_C.ipynb_
+En esta notebook completamos los valores faltantes de PRICE utilizando KNN. 
+
+Como resultado sumamos la siguiente columna:
+* R_PRICE, precio del producto enviado, con los casos nulos completados con el método solicitado.
+
+#### -Introducción al aprendizaje supervisado
+
+Consideraciones sobre el dataset final:
+
+Descartamos estos atributos:
+* ITEM_ID,  es la publicación y consideramos que 
+* SHP_WEIGHT, no se conoce, es info del correo 
+* SHP_LENGTH, idem
+* SHP_WIDTH, idem
+* SHP_HEIGHT, idem
+* TITLE
+* EXCEDIDO: creamos el atributo NO_MAQUINABLE como dato lógico
+
+Atributos a incluir en el modelo:
+* RV_PRICE
+* LEN_ATR cantidad de atributos
+* STATUS
+* DT_CAT_PROD: ID Catalogo del Producto-Revisado
+* DT_CONDITION: Condición de Venta -Revisado
+* DT_DOMAIN: Categoría de la Publicación -Revisado
+* DT_SELLER: ID Vendedor -Revisado
+* DT_BRAND: Marca del Producto -Revisado
+* DT_MODEL: Modelo del Producto -Revisado
+* SCORE: probabilidad calculada sobre TITLE
+* NO_MAQUINABLE: TRUE excede límite, caso contrario FALSE
+
+Se probaron los siguientes  modelos:
+* SGDClassifier
+* RandomForestClassifier
+
+* _MELI_INTRO_A.ipynb_
+
+
+* _MELI_INTRO_B.ipynb_
 
 
 
-Medir las distribuciones de las variables como histogramas, realizar normalizaciones e identificar outliers con los métodos vistos en clase. Hacer análisis de estos outliers y considerar si sería correcto o no eliminarlos del dataset. Sugerencia: Identificar outliers de las columnas `SHP_WEIGHT` y `SHP_VOLUME`, donde `SHP_VOLUME` se define como el producto de las dimensiones.
 
-Presentación: 
-MovieLens.ipynb
-Carpetas
-./data/ ::Contiene los dataset que se utilizaron en el análisis (MovieLens 20M Dataset).
--movies.csv, lista de películas
--ratings.csv, películas vistas por usuarios y calificación asignada
-IMPORTANTE: Descargar de https://grouplens.org/datasets/movielens/ debido a que los quité por el peso de los archivos.
-Resumen
-Se cuenta con un dataset de más de 27mil películas, estrenadas entre 1891 y 2015. Pertenecen a diversos géneros predominando el DRAMA y en menor medida la COMEDIA.
-Se tiene acceso, además, a 20 millones de calificaciones de usuarios que vieron estas películas. Son algo menos de 140mil usuarios, que en promedio vieron 144 pelis cada uno.
-La calificación media por Peli es 3.1.
-Por una cuestión de performance se consideran SOLO películas que hayan obtenido un Rating promedio de 4 en adelante. El dataset se reduce a algo más de 1700 películas con 3 millones de calificaciones de 135mil usuarios.
-Se aplica el algoritmo APRIORI para identificar reglas en este subconjunto:
-Nuestros TICKET serán cada USUARIO y los ITEMS las películas que rankeó
-Contamos con 135mil usuarios/ticket de donde extraeremos asociaciones entre películas con estos criterios:
--Ambas películas deben haber sido vistas, en conjunto, por al menos en el 0.01% de los usuarios (1300 aprox), podría ser menos pero implica mucho tiempo de proceso. (Soporte)
--La peli recomendada debe haber sido vista por el 50% de los usuarios que vieron la otra peli, como mínimo. (Confianza)
-Resultados, se identificaron:
-7394 reglas de asociación.
-231 Películas diferentes como precedente, asociadas a 32 Pelis en promedio.
--Las 5 pelis que mas se repiten como precedente son:
--Wild Bunch, The (1969)
--Stalag 17 (1953)
--Man Who Would Be King, The (1975)
--Conversation, The (1974)
--In the Heat of the Night (1967)
-121 Películas diferentes como consecuente, asociadas a 61 Pelis precedentes en promedio.
--Las 5 pelis que mas se repiten como consecuente son:
--Pulp Fiction (1994)
--Silence of the Lambs, The (1991)
--Shawshank Redemption, The (1994)
--Star Wars: Episode IV - A New Hope (1977)
--Forrest Gump (1994)
-El menor lift es 1.11, por lo que precedente y consecuente tienen mayor probabilidad de ocurrir juntos que de manera aislada.
-Se observó que las 4 pelis con lift más alto están asociadas en ida y vuelta:
--lift 23.013182 Laputa: Castle in the Sky -> Nausicaä of the Valley of the Wind
--lift 23.013182 Nausicaä of the Valley of the Wind -> Laputa: Castle in the Sky
--lift 30.229950 Jean de Florette (1986) -> Manon of the Spring (Manon des sources) (1986)
--lift 30.229950 Manon of the Spring (Manon des sources) (1986) -> Jean de Florette (1986)
-En la notebook se detalla todo el procedimiento realizado.
