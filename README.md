@@ -1,23 +1,23 @@
-# MELI-Entrega23
+## MELI-Entrega23
 Entrega Prácticos "Análisis y Curación de datos" e "Introducción al aprendizaje supervisado"
 
-### Ramiro CARO - Cohorte ALPHA
-### Marcelo LEON - Cohorte OMEGA
-#### DiploDatos 2019 - FAMAF
+#### Ramiro CARO - Cohorte ALPHA
+#### Marcelo LEON - Cohorte OMEGA
+##### DiploDatos 2019 - FAMAF
 
-Comentarios del trabajo:
+Consideraciones:
 
 - El dataset base se puede descagar de https://drivegoogle.com/file/d/1tNUKD1lf1z8C7LPpCruiDl6SKBAHb79v/view?ts=5cc45a8d 
-- Las notebook buscan y generan los archivos dataset en la carpeta _dataset_ 
+- Las notebook buscan y generan los archivos csv en la carpeta _dataset_ 
 
--Previo
+#### -Previo
 
 Se adjunta la docuemntación de la primer entrega sobre Análisis Exploratorio, en la misma se muestran las observaciones que se hicieron sobre los distintos atributos, y además un enfoque considerado para valores faltantes, que quedó solo como ejercicio ya que en el próximo práctico se respetó lo peidodo para esta situación.
 
-* MELI_Exploracion.ipynb, notebook con análisis del dataset base.
-* MELI_Exploracion.docx, informe exploratorio.
+_* MELI_Exploracion.ipynb_, notebook con análisis del dataset base.
+_* MELI_Exploracion.docx_, informe exploratorio.
 
--Análisis y Curación de datos
+#### -Comentarios del trabajo:
 
 El dataset base contiene las siguientes columnas:
 * ITEM_ID: id unívoco de cada item publicado. (Ofuscado)
@@ -34,40 +34,38 @@ El dataset base contiene las siguientes columnas:
 * STATUS: estado de la publicación (activa, cerrada, pausada, etc.)
 * TITLE: título de la publicación.
 
-* MELI_AYC_A.ipynb
-Esta notebook revisamos las variables categóricas que nos interesa incluir en el modelo, con estas consideraciones:
- * Las categorizaciones con valores nulos las vamos a asignar a un label "SIN_DATOS", ya que asumimos que es una situación que pueda darse al no ser valores obligatorios.
- * Las categorizaciones con menos de 30 valores las consideramos sin valor estadístico, por lo tanto las agrupamos con el label "OTROS"
+#### -Análisis y Curación de datos
 
-Partimos del dataset base con 499948 envíos y siguiendo con lo solicitado, se eliminaron aquellos con STATUS 404 (78361) y los que carecen de valor en SHP_HEIGHT, SHP_LENGTH, SHP_WEIGHT, SHP_WIDTH (125262).
-Se agruparon los envíos por ITEM calculando 236443 diferentes con sus medianas de peso y dimensiones. Decidimos para el resto del trabajo utilizar el dataset completo y no este reducido por considerar que pederíamos características de envíos que faltaría en esta tabla por item.
-Como salida de esta notebook obtenemos:
+_* MELI_AYC_A.ipynb_
+En esta notebook revisamos las variables categóricas que nos interesa incluir en el modelo, con estas consideraciones:
+- Las categorizaciones con valores nulos las vamos a asignar a un label "SIN_DATOS", ya que asumimos que es una situación que pueda darse al no ser valores obligatorios.
+- Las categorizaciones con menos de 30 valores las consideramos sin valor estadístico, por lo tanto las agrupamos con el label "OTROS"
 
-Se agruparon los envíos por ITEM calculando 236443 diferentes con sus medianas de peso y dimensiones. Decidimos para el resto del trabajo utilizar el dataset completo y no este reducido por considerar que pederíamos características del envíos que faltaría en esta tabla por item.
+Categorías revisadas (nuevos atributos):
 
-* MELI_AYC_B.ipynb
+* DT_CAT_PROD, id del catálogo. El 88% de los envíos pertenecen a un solo catálogo, el siguiente caso en significancia son aquellos con pocos envíos (<30) agrupados en OTROS y representa el 10%. 
+* DT_CONDITION, condición de venta. El 10% estaba sin info y fue a la categoría SIN_DATOS. Mas del 88% son Nuevos, llama la atención la poca cantidad de envíos de productos usados.
+* DT_DOMAIN, categoría del producto. Está muy dispersa, las dos categorías mas siginificativas corresponden a los grupos SIN_DATOS 10% y OTROS 5%, el restante 85% se distribuye entre 1090 categorías.
+* DT_SELLER, vendedor. La mayoría de los vendedores tiene menos de 30 envíos, por lo que los agrupamos en OTROS representando el 65%. 
 
-* MELI_AYC_C.ipynb
+Del análisis de los componentes de ATTRIBUTES extraemos estas columnas:
+* DT_BRAND, marca. Cerca del 40% tiene poca relevancia (<30). El 20% de los envíos no tiene este dato.
+* DT_MODEL, modelo. El 50% sin relevancia (<30) y 35% sin dato.
+
+Sumamos como columna también:
+* LEN_ATR, cantidad de atributos del JSON.
+
+Además, siguiendo con lo solicitado, se eliminaron aquellos con STATUS 404 (78361 casos) y los que carecen de valor en SHP_HEIGHT, SHP_LENGTH, SHP_WEIGHT, SHP_WIDTH (125262 casos). También quitamos los envíos con precio > 30mil reales por consideralos no racionales (34 casos).
 
 
-Actividades Propuestas:
-Eliminar valores cuyo status sea `404` , luego eliminar la columna `status` del dataset ya que solo es útil para limpieza.
+_* MELI_AYC_B.ipynb_
+En esta notebook intentamos buscar una relación entre lo expuesto en el título de la publicación y la probabilidad de exceder el límite impuesto por el correo, ya que, tal lo expuesto en el análisis preliminar, habría palabras que tienen mas peso en los productos que superan ese límite.
+Como resultado sumamos la siguiente columna:
+* SCORE, probabiliadad de que el envío sea multado según lo expresado en el título.
 
-Eliminar los valores NaN de las columnas con prefijo `SHP_`. Estas son aquellas que representan o peso o dimensiones de un item.
+_* MELI_AYC_C.ipynb_
 
-Agrupar por item id y calcular mediana de peso y medidas. De esta forma debería quedar una única fila por cada item_id.
 
-Parsear la columna de atributos y extraer a columnas propias aquellos atributos cuyo `id` sea `BRAND` o `MODEL`. Estos atributos representan marca o modelo que el vendedor del item ingresó en la publicación. [Opcional] No es necesario limitarse a estos dos atributos, se puede probar quedarse con los N atributos más frecuentes.
-
-Transformar variables categóricas en números (Se recomienda OneHotEncoding) para las columnas (Sugerencia: arrancar con un sample de ~10K items)
-`CATALOG_PRODUCT_ID`
-`CONDITION`
-`DOMAIN_ID`
-`SELLER_ID`
-`BRAND` (extraída en 4)
-`MODEL`(extraída en 4)
-
-En caso de tener alguna variable no medida (en nuestro caso `PRICE`) imputar sus valores utilizando kNN.
 
 Medir las distribuciones de las variables como histogramas, realizar normalizaciones e identificar outliers con los métodos vistos en clase. Hacer análisis de estos outliers y considerar si sería correcto o no eliminarlos del dataset. Sugerencia: Identificar outliers de las columnas `SHP_WEIGHT` y `SHP_VOLUME`, donde `SHP_VOLUME` se define como el producto de las dimensiones.
 
